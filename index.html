@@ -1,0 +1,1467 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>SAGATOV DIAS — IT Tech Lead</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              darkBg: "#121212",
+              cardBg: "#1A1A1C",
+              cardHover: "#242427",
+              brandMuted: "#9E9EA5",
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+        overflow-x: hidden;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .card-bg-shape {
+        position: fixed;
+        top: -10%;
+        right: -25%;
+        width: 130vw;
+        height: 120vh;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.12;
+      }
+
+      .glass-card {
+        background: rgba(26, 26, 28, 0.88);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .glass-card:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .toast-slide {
+        transition:
+          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.25s ease;
+      }
+
+      @keyframes subtleGlow {
+        0%,
+        100% {
+          opacity: 0.12;
+          transform: scale(1);
+        }
+
+        50% {
+          opacity: 0.22;
+          transform: scale(1.02);
+        }
+      }
+
+      .glow-effect {
+        animation: subtleGlow 8s infinite ease-in-out;
+      }
+
+      /* Language active pill */
+      .language-switcher {
+        position: relative;
+      }
+
+      .language-pill {
+        position: absolute;
+        top: 4px;
+        bottom: 4px;
+        left: 4px;
+        width: 36px;
+        border-radius: 9px;
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        transition:
+          transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+          width 0.28s ease;
+        pointer-events: none;
+      }
+
+      .language-btn {
+        position: relative;
+        z-index: 2;
+        min-width: 36px;
+        color: #8a8a91;
+        transition:
+          color 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .language-btn.active {
+        color: #000000;
+      }
+
+      .language-btn:active {
+        transform: scale(0.92);
+      }
+
+      /* Modal */
+      .modal-backdrop {
+        transition:
+          opacity 0.25s ease,
+          visibility 0.25s ease;
+      }
+
+      .modal-content {
+        transition:
+          transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.2s ease;
+      }
+
+      .modal-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .modal-hidden .modal-content {
+        transform: translateY(20px) scale(0.97);
+        opacity: 0;
+      }
+
+      .modal-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .modal-visible .modal-content {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+
+      .experience-item + .experience-item,
+      .education-item + .education-item {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .skill-tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 8px;
+        border-radius: 7px;
+        background: rgba(255, 255, 255, 0.055);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        color: #a1a1aa;
+        font-size: 9px;
+        font-weight: 600;
+      }
+
+      .experience-bullet {
+        position: relative;
+        padding-left: 14px;
+      }
+
+      .experience-bullet::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 7px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #8b8b93;
+      }
+
+      /* Scrollbar */
+      .modal-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      .modal-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .modal-scroll::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex items-center justify-center p-3 sm:p-4 relative"
+  >
+    <!-- Background -->
+    <svg
+      class="card-bg-shape glow-effect"
+      viewBox="0 0 800 800"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M450 -50 C 650 150, 750 450, 550 650 C 350 850, 650 950, 850 750"
+        stroke="#FFFFFF"
+        stroke-width="50"
+        stroke-linecap="round"
+      />
+      <path
+        d="M550 -150 C 750 50, 850 350, 650 550 C 450 750, 750 850, 950 650"
+        stroke="#FFFFFF"
+        stroke-width="25"
+        stroke-linecap="round"
+        opacity="0.5"
+      />
+    </svg>
+    <!-- Main -->
+    <main class="w-full max-w-sm relative z-10 space-y-2.5 my-auto py-2">
+      <!-- Language -->
+      <div class="flex items-center justify-between px-1">
+        <span
+          class="text-[10px] font-mono tracking-widest text-neutral-500 uppercase"
+          data-i18n="digitalCard"
+        >
+          DIGITAL CARD
+        </span>
+
+        <div
+          id="languageSwitcher"
+          class="language-switcher glass-card p-1 rounded-xl flex items-center gap-0 border border-white/10 shadow-sm"
+        >
+          <div id="languagePill" class="language-pill"></div>
+
+          <button
+            onclick="setLanguage('en')"
+            id="btn-en"
+            class="language-btn active px-2.5 py-1 rounded-lg text-[11px] font-extrabold"
+          >
+            EN
+          </button>
+
+          <button
+            onclick="setLanguage('kz')"
+            id="btn-kz"
+            class="language-btn px-2.5 py-1 rounded-lg text-[11px] font-medium"
+          >
+            KZ
+          </button>
+
+          <button
+            onclick="setLanguage('ru')"
+            id="btn-ru"
+            class="language-btn px-2.5 py-1 rounded-lg text-[11px] font-medium"
+          >
+            RU
+          </button>
+        </div>
+      </div>
+
+      <!-- Profile -->
+      <div
+        class="glass-card rounded-2xl p-4 sm:p-5 shadow-2xl relative overflow-hidden"
+      >
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-3 min-w-0">
+            <!-- Photo -->
+            <div
+              class="w-12 h-12 rounded-xl overflow-hidden border border-white/15 bg-neutral-800 shrink-0 shadow-inner"
+            >
+              <img
+                src="photo.png"
+                alt="Dias Sagatov"
+                class="w-full h-full object-cover"
+                onerror="
+                  this.style.display = 'none';
+                  this.parentElement.innerHTML =
+                    '<span class=\'w-full h-full flex items-center justify-center font-extrabold text-lg tracking-wider text-white\'>SD</span>';
+                "
+              />
+            </div>
+
+            <div class="min-w-0">
+              <h1
+                class="text-xl font-black tracking-tight text-white uppercase leading-none font-sans truncate"
+              >
+                SAGATOV DIAS
+              </h1>
+
+              <p
+                id="ui-role"
+                class="text-[11px] font-bold text-brandMuted tracking-wider mt-1 uppercase"
+              >
+                IT TECH LEAD
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full h-[1px] bg-white/15 my-3.5"></div>
+
+        <!-- Updated professional positioning -->
+        <p
+          id="ui-bio"
+          class="text-xs text-neutral-300 leading-relaxed font-normal"
+        >
+          IT Tech Lead & Software Engineer focused on software development,
+          technical analysis, system design and architecture, integrations,
+          cross-functional collaboration, and project management. Experienced in
+          translating business needs into scalable technical solutions and
+          coordinating delivery across teams.
+        </p>
+
+        <!-- Save contact -->
+        <button
+          onclick="downloadVCard()"
+          class="w-full mt-4 py-2.5 px-3 rounded-xl bg-white text-black font-extrabold text-xs hover:bg-neutral-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+            />
+          </svg>
+
+          <span id="ui-vcard-text">Save Contact (.vcf)</span>
+        </button>
+      </div>
+
+      <!-- Experience / Education -->
+      <div class="grid grid-cols-2 gap-2">
+        <button
+          onclick="openModal('experienceModal')"
+          class="glass-card p-3 rounded-xl flex items-center gap-3 group hover:bg-cardHover transition-all active:scale-[0.98] text-left"
+        >
+          <div
+            class="p-2 rounded-lg bg-violet-500/10 text-violet-400 border border-violet-500/20 group-hover:bg-violet-500 group-hover:text-white transition-all shrink-0"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20 7h-4V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM8 7h8"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <div id="ui-experience-title" class="text-xs font-bold text-white">
+              Experience
+            </div>
+            <div
+              id="ui-experience-subtitle"
+              class="text-[9px] text-neutral-500 mt-0.5"
+            >
+              Career history
+            </div>
+          </div>
+        </button>
+
+        <button
+          onclick="openModal('educationModal')"
+          class="glass-card p-3 rounded-xl flex items-center gap-3 group hover:bg-cardHover transition-all active:scale-[0.98] text-left"
+        >
+          <div
+            class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 group-hover:bg-cyan-500 group-hover:text-white transition-all shrink-0"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M22 10l-10-5L2 10l10 5 10-5z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 12.5V17c3.5 2.5 8.5 2.5 12 0v-4.5"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <div id="ui-education-title" class="text-xs font-bold text-white">
+              Education
+            </div>
+            <div
+              id="ui-education-subtitle"
+              class="text-[9px] text-neutral-500 mt-0.5"
+            >
+              Academic background
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Contacts -->
+      <div class="space-y-2">
+        <!-- Phone -->
+        <div
+          class="glass-card p-3 rounded-xl flex items-center justify-between group hover:bg-cardHover transition-all"
+        >
+          <a
+            href="tel:+77478608262"
+            class="flex items-center gap-3 flex-1 min-w-0"
+          >
+            <div
+              class="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 group-hover:bg-indigo-500 group-hover:text-white transition-all shrink-0"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                />
+              </svg>
+            </div>
+
+            <div class="truncate">
+              <div
+                id="ui-label-phone"
+                class="text-xs font-bold text-white leading-tight"
+              >
+                Phone
+              </div>
+              <div class="text-[11px] text-neutral-400 truncate">
+                +7 747 860 82 62
+              </div>
+            </div>
+          </a>
+
+          <button
+            onclick="
+              copyToClipboard(
+                '+77478608262',
+                translations[currentLang].phoneCopied,
+              )
+            "
+            id="btn-copy-phone"
+            title="Copy"
+            class="p-1.5 text-neutral-400 hover:text-white hover:bg-white/10 rounded-lg transition-all ml-1 shrink-0"
+          >
+            <svg
+              class="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Email -->
+        <div
+          class="glass-card p-3 rounded-xl flex items-center justify-between group hover:bg-cardHover transition-all"
+        >
+          <a
+            href="mailto:sagatov.dev@gmail.com"
+            class="flex items-center gap-3 flex-1 min-w-0"
+          >
+            <div
+              class="p-2 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-white transition-all shrink-0"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+
+            <div class="truncate">
+              <div
+                id="ui-label-email"
+                class="text-xs font-bold text-white leading-tight"
+              >
+                Email
+              </div>
+              <div class="text-[11px] text-neutral-400 truncate">
+                sagatov.dev@gmail.com
+              </div>
+            </div>
+          </a>
+
+          <button
+            onclick="
+              copyToClipboard(
+                'sagatov.dev@gmail.com',
+                translations[currentLang].emailCopied,
+              )
+            "
+            id="btn-copy-email"
+            title="Copy"
+            class="p-1.5 text-neutral-400 hover:text-white hover:bg-white/10 rounded-lg transition-all ml-1 shrink-0"
+          >
+            <svg
+              class="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Social -->
+        <div class="grid grid-cols-3 gap-2">
+          <!-- LinkedIn -->
+          <a
+            href="https://www.linkedin.com/in/dias-sagatov/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="glass-card p-2.5 rounded-xl flex flex-col items-center justify-center text-center group hover:bg-cardHover transition-all active:scale-95"
+          >
+            <div
+              class="p-2 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:bg-blue-500 group-hover:text-white transition-all mb-1"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.7a1.6 1.6 0 0 0-1.6 1.6c0 .88.71 1.6 1.6 1.6s1.6-.72 1.6-1.6c0-.89-.72-1.6-1.6-1.6z"
+                />
+              </svg>
+            </div>
+
+            <span class="text-[11px] font-semibold text-white"> LinkedIn </span>
+          </a>
+
+          <!-- Telegram -->
+          <a
+            href="https://t.me/donmattina"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="glass-card p-2.5 rounded-xl flex flex-col items-center justify-center text-center group hover:bg-cardHover transition-all active:scale-95"
+          >
+            <div
+              class="p-2 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20 group-hover:bg-sky-500 group-hover:text-white transition-all mb-1"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"
+                />
+              </svg>
+            </div>
+
+            <span class="text-[11px] font-semibold text-white"> Telegram </span>
+          </a>
+
+          <!-- WhatsApp -->
+          <a
+            href="https://wa.me/77478608262"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="glass-card p-2.5 rounded-xl flex flex-col items-center justify-center text-center group hover:bg-cardHover transition-all active:scale-95"
+          >
+            <div
+              class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-white transition-all mb-1"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.83 14.12c-.25.69-1.22 1.33-1.99 1.49-.52.11-1.2.2-3.48-.75-2.92-1.21-4.81-4.18-4.96-4.37-.15-.19-1.18-1.57-1.18-3 0-1.43.75-2.14 1.02-2.43.27-.29.59-.36.79-.36.2 0 .39.01.56.01.18.01.42-.07.66.5.25.59.85 2.08.92 2.23.07.15.12.33.02.53-.1.19-.15.31-.3.49-.15.18-.31.4-.44.53-.15.15-.31.31-.13.62.18.31.8 1.32 1.72 2.14 1.18 1.05 2.18 1.38 2.49 1.53.31.15.49.13.67-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.71-.15.29.11 1.84.87 2.16 1.03.32.16.53.24.61.37.08.14.08.8-.17 1.49z"
+                />
+              </svg>
+            </div>
+
+            <span class="text-[11px] font-semibold text-white"> WhatsApp </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center pt-2">
+        <p class="text-[10px] text-neutral-500 tracking-wider font-mono">
+          SAGATOV DIAS • DIGITAL CARD
+        </p>
+      </div>
+    </main>
+
+    <!-- ========================= -->
+    <!-- EXPERIENCE MODAL -->
+    <!-- ========================= -->
+
+    <div
+      id="experienceModal"
+      class="modal-backdrop modal-hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md p-3 sm:p-5 flex items-center justify-center"
+      onclick="handleModalBackdrop(event, 'experienceModal')"
+    >
+      <div
+        class="modal-content glass-card rounded-2xl w-full max-w-lg max-h-[90vh] overflow-hidden shadow-2xl"
+      >
+        <div
+          class="flex items-center justify-between p-4 border-b border-white/10"
+        >
+          <div>
+            <h2 id="experienceModalTitle" class="text-lg font-black text-white">
+              Experience
+            </h2>
+
+            <p
+              id="experienceModalSubtitle"
+              class="text-[10px] text-neutral-500 mt-0.5"
+            >
+              Professional experience
+            </p>
+          </div>
+
+          <button
+            onclick="closeModal('experienceModal')"
+            class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-neutral-400 hover:text-white transition-all"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 6l12 12M18 6L6 18"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-scroll overflow-y-auto p-4 max-h-[calc(90vh-76px)]">
+          <!-- PMI -->
+          <section class="experience-item">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <h3 class="text-sm font-extrabold text-white">
+                  Philip Morris International
+                </h3>
+                <p
+                  id="pmi-company-type"
+                  class="text-[10px] text-neutral-500 mt-0.5"
+                >
+                  Full-time · 1 yr 2 mos
+                </p>
+              </div>
+
+              <span
+                class="text-[9px] px-2 py-1 rounded-md bg-white/5 text-neutral-400 whitespace-nowrap"
+              >
+                Almaty, Kazakhstan
+              </span>
+            </div>
+
+            <div class="mt-3 space-y-3">
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <h4 id="pmi-role-1" class="text-xs font-bold text-white">
+                      IT Tech Lead
+                    </h4>
+                    <p class="text-[10px] text-neutral-500 mt-0.5">
+                      Jan 2026 - Present · 9 mos
+                    </p>
+                  </div>
+
+                  <span class="text-[9px] text-neutral-500"> Hybrid </span>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  <span class="skill-tag">Project Management</span>
+                  <span class="skill-tag">SDLC</span>
+                  <span class="skill-tag">+6 skills</span>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <h4 class="text-xs font-bold text-white">
+                      Digital Marketing Technology Engineer
+                    </h4>
+                    <p class="text-[10px] text-neutral-500 mt-0.5">
+                      Aug 2025 - Jan 2026 · 6 mos
+                    </p>
+                  </div>
+
+                  <span class="text-[9px] text-neutral-500"> On-site </span>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  <span class="skill-tag">Microsoft Power BI</span>
+                  <span class="skill-tag">Microsoft Excel</span>
+                  <span class="skill-tag">+19 skills</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Morrison -->
+          <section class="experience-item">
+            <div>
+              <h3 class="text-sm font-extrabold text-white">
+                Morrison Code Academy
+              </h3>
+
+              <p class="text-[10px] text-neutral-500 mt-0.5">
+                Full-time · 9 mos
+              </p>
+
+              <p class="text-[10px] text-neutral-500 mt-0.5">
+                Almaty, Kazakhstan · Remote
+              </p>
+            </div>
+
+            <div class="mt-3 space-y-4">
+              <!-- Team Lead -->
+              <div>
+                <h4 class="text-xs font-bold text-white">Team Lead Manager</h4>
+
+                <p class="text-[10px] text-neutral-500 mt-0.5">
+                  Jan 2025 - Jun 2025 · 6 mos
+                </p>
+
+                <div
+                  class="mt-2 space-y-1.5 text-[10px] text-neutral-300 leading-relaxed"
+                >
+                  <p class="experience-bullet">
+                    Develop tools to streamline teachers’ work.
+                  </p>
+                  <p class="experience-bullet">
+                    Assign tasks to instructors and monitor progress.
+                  </p>
+                  <p class="experience-bullet">
+                    Oversee reporting and ensure accuracy.
+                  </p>
+                  <p class="experience-bullet">Check the quality of lessons.</p>
+                  <p class="experience-bullet">
+                    Organize students into groups.
+                  </p>
+                  <p class="experience-bullet">
+                    Conduct interviews and onboard new staff.
+                  </p>
+                  <p class="experience-bullet">
+                    Prepare personalized progress reports for parents.
+                  </p>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  <span class="skill-tag">Administrative Organization</span>
+                  <span class="skill-tag">General Office Work</span>
+                  <span class="skill-tag">+10 skills</span>
+                </div>
+              </div>
+
+              <!-- Software Engineer -->
+              <div>
+                <h4 class="text-xs font-bold text-white">Software Engineer</h4>
+
+                <p class="text-[10px] text-neutral-500 mt-0.5">
+                  Jan 2025 - Jun 2025 · 6 mos
+                </p>
+
+                <p class="text-[10px] text-neutral-300 leading-relaxed mt-2">
+                  Developing different software to make work smarter and faster.
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  <span class="skill-tag">Server Side JavaScript</span>
+                  <span class="skill-tag">Internet Software</span>
+                  <span class="skill-tag">+12 skills</span>
+                </div>
+              </div>
+
+              <!-- Frontend Teacher -->
+              <div>
+                <h4 class="text-xs font-bold text-white">Frontend Teacher</h4>
+
+                <p class="text-[10px] text-neutral-500 mt-0.5">
+                  Oct 2024 - Jun 2025 · 9 mos
+                </p>
+
+                <div
+                  class="mt-2 space-y-1.5 text-[10px] text-neutral-300 leading-relaxed"
+                >
+                  <p class="experience-bullet">Teach 100+ students.</p>
+                  <p class="experience-bullet">
+                    Deliver lectures on frontend development.
+                  </p>
+                  <p class="experience-bullet">
+                    Simplify complex concepts for easy understanding.
+                  </p>
+                  <p class="experience-bullet">
+                    Guide students with coding exercises and projects.
+                  </p>
+                  <p class="experience-bullet">
+                    Make learning engaging and enjoyable.
+                  </p>
+                  <p class="experience-bullet">
+                    Provide constructive feedback on assignments.
+                  </p>
+                  <p class="experience-bullet">
+                    Promote coding standards and problem-solving skills.
+                  </p>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  <span class="skill-tag">HTML</span>
+                  <span class="skill-tag">HTML5</span>
+                  <span class="skill-tag">+11 skills</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Ican AI -->
+          <section class="experience-item">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <h3 class="text-sm font-extrabold text-white">Ican_AI</h3>
+
+                <p class="text-[10px] text-neutral-500 mt-0.5">Full-time</p>
+              </div>
+
+              <span
+                class="text-[9px] px-2 py-1 rounded-md bg-white/5 text-neutral-400 whitespace-nowrap"
+              >
+                Almaty, Kazakhstan · Hybrid
+              </span>
+            </div>
+
+            <div class="mt-3">
+              <h4 class="text-xs font-bold text-white">Software Engineer</h4>
+
+              <p class="text-[10px] text-neutral-500 mt-0.5">
+                Jan 2024 - Oct 2024 · 10 mos
+              </p>
+
+              <div
+                class="mt-2 space-y-1.5 text-[10px] text-neutral-300 leading-relaxed"
+              >
+                <p class="experience-bullet">
+                  Planned and developed core application logic and the
+                  architecture for the client-side application using React,
+                  Redux, FSD, and Tailwind.
+                </p>
+
+                <p class="experience-bullet">
+                  Integrated Google, Jira, Miro, Zoom, and Notion into the app.
+                </p>
+
+                <p class="experience-bullet">
+                  Created a custom calendar library with specialized glider
+                  functions for efficient system interaction.
+                </p>
+
+                <p class="experience-bullet">
+                  Developed a library of modifiable windows to enhance
+                  multitasking, enabling the opening of files and windows from
+                  integrated services within the application.
+                </p>
+
+                <p class="experience-bullet">
+                  Adapted the application for mobile devices.
+                </p>
+
+                <p class="experience-bullet">
+                  Designed and implemented animations and interactive elements
+                  for both the landing page and the application.
+                </p>
+
+                <p class="experience-bullet">
+                  Optimized the application for Progressive Web App (PWA)
+                  compatibility, allowing installation on PCs and mobile
+                  devices.
+                </p>
+
+                <p class="experience-bullet">
+                  Built an admin panel to track and visualize visit data through
+                  graphs.
+                </p>
+              </div>
+
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">+22 skills</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= -->
+    <!-- EDUCATION MODAL -->
+    <!-- ========================= -->
+
+    <div
+      id="educationModal"
+      class="modal-backdrop modal-hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md p-3 sm:p-5 flex items-center justify-center"
+      onclick="handleModalBackdrop(event, 'educationModal')"
+    >
+      <div
+        class="modal-content glass-card rounded-2xl w-full max-w-lg max-h-[90vh] overflow-hidden shadow-2xl"
+      >
+        <div
+          class="flex items-center justify-between p-4 border-b border-white/10"
+        >
+          <div>
+            <h2 id="educationModalTitle" class="text-lg font-black text-white">
+              Education
+            </h2>
+
+            <p
+              id="educationModalSubtitle"
+              class="text-[10px] text-neutral-500 mt-0.5"
+            >
+              Academic background
+            </p>
+          </div>
+
+          <button
+            onclick="closeModal('educationModal')"
+            class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-neutral-400 hover:text-white transition-all"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 6l12 12M18 6L6 18"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-scroll overflow-y-auto p-4 max-h-[calc(90vh-76px)]">
+          <!-- KBTU -->
+          <section class="education-item">
+            <div class="flex gap-3">
+              <div
+                class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0"
+              >
+                <svg
+                  class="w-5 h-5 text-cyan-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M22 10l-10-5L2 10l10 5 10-5z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M6 12.5V17c3.5 2.5 8.5 2.5 12 0v-4.5"
+                  />
+                </svg>
+              </div>
+
+              <div>
+                <h3 class="text-sm font-extrabold text-white">
+                  Kazakh-British Technical University
+                </h3>
+
+                <p id="kbtu-degree" class="text-xs text-neutral-300 mt-1">
+                  Master's degree, Computer Science
+                </p>
+
+                <p class="text-[10px] text-neutral-500 mt-1">
+                  Aug 2025 – Jun 2027
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- NU -->
+          <section class="education-item">
+            <div class="flex gap-3">
+              <div
+                class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0"
+              >
+                <svg
+                  class="w-5 h-5 text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M22 10l-10-5L2 10l10 5 10-5z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M6 12.5V17c3.5 2.5 8.5 2.5 12 0v-4.5"
+                  />
+                </svg>
+              </div>
+
+              <div>
+                <h3 class="text-sm font-extrabold text-white">
+                  Nazarbayev University
+                </h3>
+
+                <p class="text-xs text-neutral-300 mt-1">
+                  Bachelor's degree, Computer Science
+                </p>
+
+                <p class="text-[10px] text-neutral-500 mt-1">
+                  Jul 2021 – May 2025
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  <span class="skill-tag">Software Development</span>
+                  <span class="skill-tag">Teamwork</span>
+                  <span class="skill-tag">+10 skills</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div
+      id="toast"
+      class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-white text-black px-4 py-2.5 rounded-xl shadow-2xl font-semibold text-xs flex items-center gap-2 opacity-0 pointer-events-none translate-y-3 toast-slide z-[60]"
+    >
+      <svg
+        class="w-4 h-4 text-emerald-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+
+      <span id="toast-message">Copied to clipboard</span>
+    </div>
+
+    <script>
+      /* =========================
+     TRANSLATIONS
+  ========================= */
+
+      const translations = {
+        en: {
+          digitalCard: "DIGITAL CARD",
+
+          role: "IT TECH LEAD",
+
+          bio: "IT Tech Lead & Software Engineer focused on software development, technical analysis, system design and architecture, integrations, cross-functional collaboration, and project management. Experienced in translating business needs into scalable technical solutions and coordinating delivery across teams.",
+
+          vcardBtn: "Save Contact (.vcf)",
+
+          phoneLabel: "Phone",
+          emailLabel: "Email",
+
+          experience: "Experience",
+          experienceSubtitle: "Career history",
+
+          education: "Education",
+          educationSubtitle: "Academic background",
+
+          experienceModalSubtitle: "Professional experience",
+          educationModalSubtitle: "Academic background",
+
+          phoneCopied: "Phone number copied",
+          emailCopied: "Email address copied",
+          vcardDownloaded: "Contact file (.vcf) downloaded",
+          copyTooltip: "Copy",
+        },
+
+        kz: {
+          digitalCard: "ЦИФРЛЫҚ КАРТОЧКА",
+
+          role: "IT TECH LEAD",
+
+          bio: "IT Tech Lead және Software Engineer. Бағдарламалық әзірлеу, техникалық талдау, жүйелерді жобалау және архитектура, интеграциялар, кросс-функционалды өзара әрекеттесу және project management бағыттарына маманданамын. Бизнес қажеттіліктерін масштабталатын техникалық шешімдерге айналдырып, командалар арасындағы delivery процесін үйлестіремін.",
+
+          vcardBtn: "Контактіні сақтау (.vcf)",
+
+          phoneLabel: "Телефон",
+          emailLabel: "Пошта",
+
+          experience: "Тәжірибе",
+          experienceSubtitle: "Жұмыс тәжірибесі",
+
+          education: "Білім",
+          educationSubtitle: "Академиялық білім",
+
+          experienceModalSubtitle: "Кәсіби тәжірибе",
+          educationModalSubtitle: "Академиялық білім",
+
+          phoneCopied: "Телефон нөмірі көшірілді",
+          emailCopied: "E-mail көшірілді",
+          vcardDownloaded: "Контакт файлы (.vcf) жүктелді",
+          copyTooltip: "Көшіру",
+        },
+
+        ru: {
+          digitalCard: "ЦИФРОВАЯ КАРТОЧКА",
+
+          role: "IT TECH LEAD",
+
+          bio: "IT Tech Lead & Software Engineer. Фокусируюсь на разработке ПО, техническом анализе, проектировании систем и архитектуре, интеграциях, кросс-командном взаимодействии и project management. Перевожу бизнес-задачи в масштабируемые технические решения и координирую delivery между командами.",
+
+          vcardBtn: "Сохранить контакт (.vcf)",
+
+          phoneLabel: "Телефон",
+          emailLabel: "Почта",
+
+          experience: "Опыт работы",
+          experienceSubtitle: "Профессиональный путь",
+
+          education: "Образование",
+          educationSubtitle: "Академическое образование",
+
+          experienceModalSubtitle: "Профессиональный опыт",
+          educationModalSubtitle: "Академическое образование",
+
+          phoneCopied: "Телефон скопирован",
+          emailCopied: "E-mail скопирован",
+          vcardDownloaded: "vCard файл скачан",
+          copyTooltip: "Копировать",
+        },
+      };
+
+      let currentLang = "en";
+
+      /* =========================
+     LANGUAGE SWITCHER
+  ========================= */
+
+      function moveLanguagePill(lang) {
+        const pill = document.getElementById("languagePill");
+        const button = document.getElementById(`btn-${lang}`);
+
+        if (!pill || !button) return;
+
+        const buttonLeft = button.offsetLeft;
+        const buttonWidth = button.offsetWidth;
+
+        pill.style.width = `${buttonWidth}px`;
+        pill.style.transform = `translateX(${buttonLeft - 4}px)`;
+      }
+
+      function setLanguage(lang) {
+        currentLang = lang;
+
+        const t = translations[lang];
+
+        document.documentElement.lang = lang;
+
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          const key = element.dataset.i18n;
+
+          if (t[key]) {
+            element.innerText = t[key];
+          }
+        });
+
+        document.getElementById("ui-role").innerText = t.role;
+        document.getElementById("ui-bio").innerText = t.bio;
+        document.getElementById("ui-vcard-text").innerText = t.vcardBtn;
+
+        document.getElementById("ui-label-phone").innerText = t.phoneLabel;
+
+        document.getElementById("ui-label-email").innerText = t.emailLabel;
+
+        document.getElementById("ui-experience-title").innerText = t.experience;
+
+        document.getElementById("ui-experience-subtitle").innerText =
+          t.experienceSubtitle;
+
+        document.getElementById("ui-education-title").innerText = t.education;
+
+        document.getElementById("ui-education-subtitle").innerText =
+          t.educationSubtitle;
+
+        document.getElementById("experienceModalTitle").innerText =
+          t.experience;
+
+        document.getElementById("experienceModalSubtitle").innerText =
+          t.experienceModalSubtitle;
+
+        document.getElementById("educationModalTitle").innerText = t.education;
+
+        document.getElementById("educationModalSubtitle").innerText =
+          t.educationModalSubtitle;
+
+        document
+          .getElementById("btn-copy-phone")
+          .setAttribute("title", t.copyTooltip);
+
+        document
+          .getElementById("btn-copy-email")
+          .setAttribute("title", t.copyTooltip);
+
+        ["en", "kz", "ru"].forEach((language) => {
+          const button = document.getElementById(`btn-${language}`);
+
+          button.classList.toggle("active", language === lang);
+
+          button.classList.toggle("font-extrabold", language === lang);
+
+          button.classList.toggle("font-medium", language !== lang);
+        });
+
+        moveLanguagePill(lang);
+
+        localStorage.setItem("preferredLanguage", lang);
+      }
+
+      /* =========================
+     MODALS
+  ========================= */
+
+      function openModal(id) {
+        const modal = document.getElementById(id);
+
+        if (!modal) return;
+
+        modal.classList.remove("modal-hidden");
+        modal.classList.add("modal-visible");
+
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal(id) {
+        const modal = document.getElementById(id);
+
+        if (!modal) return;
+
+        modal.classList.remove("modal-visible");
+        modal.classList.add("modal-hidden");
+
+        document.body.style.overflow = "";
+      }
+
+      function handleModalBackdrop(event, id) {
+        if (event.target.id === id) {
+          closeModal(id);
+        }
+      }
+
+      /* ESC closes modal */
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeModal("experienceModal");
+          closeModal("educationModal");
+        }
+      });
+
+      /* =========================
+     CLIPBOARD
+  ========================= */
+
+      function copyToClipboard(text, message) {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              showToast(message);
+            })
+            .catch(() => {
+              fallbackCopy(text, message);
+            });
+        } else {
+          fallbackCopy(text, message);
+        }
+      }
+
+      function fallbackCopy(text, message) {
+        const textArea = document.createElement("textarea");
+
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+
+        document.body.appendChild(textArea);
+
+        textArea.focus();
+        textArea.select();
+
+        try {
+          document.execCommand("copy");
+          showToast(message);
+        } catch (err) {
+          showToast("Error copying text");
+        }
+
+        document.body.removeChild(textArea);
+      }
+
+      /* =========================
+     TOAST
+  ========================= */
+
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        const toastMsg = document.getElementById("toast-message");
+
+        toastMsg.innerText = message;
+
+        toast.classList.remove(
+          "opacity-0",
+          "pointer-events-none",
+          "translate-y-3",
+        );
+
+        toast.classList.add("opacity-100", "translate-y-0");
+
+        setTimeout(() => {
+          toast.classList.remove("opacity-100", "translate-y-0");
+
+          toast.classList.add(
+            "opacity-0",
+            "pointer-events-none",
+            "translate-y-3",
+          );
+        }, 2200);
+      }
+
+      /* =========================
+     VCARD
+  ========================= */
+
+      function downloadVCard() {
+        const vCardData = [
+          "BEGIN:VCARD",
+          "VERSION:3.0",
+          "N:Sagatov;Dias;;;",
+          "FN:Dias Sagatov",
+          "TITLE:IT Tech Lead",
+          "TEL;TYPE=CELL:+77478608262",
+          "EMAIL;TYPE=INTERNET,WORK:sagatov.dev@gmail.com",
+          "URL:https://www.linkedin.com/in/dias-sagatov/",
+          "END:VCARD",
+        ].join("\r\n");
+
+        const blob = new Blob([vCardData], {
+          type: "text/vcard;charset=utf-8;",
+        });
+
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.setAttribute("download", "Dias_Sagatov.vcf");
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        window.URL.revokeObjectURL(url);
+
+        showToast(translations[currentLang].vcardDownloaded);
+      }
+
+      /* =========================
+     INITIALIZATION
+  ========================= */
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedLanguage = localStorage.getItem("preferredLanguage");
+
+        const initialLanguage =
+          savedLanguage && translations[savedLanguage] ? savedLanguage : "en";
+
+        setLanguage(initialLanguage);
+
+        /*
+      Run again after fonts/layout are ready so the
+      language pill has the exact button dimensions.
+    */
+        requestAnimationFrame(() => {
+          moveLanguagePill(initialLanguage);
+        });
+
+        window.addEventListener("resize", () => {
+          moveLanguagePill(currentLang);
+        });
+      });
+    </script>
+  </body>
+</html>
